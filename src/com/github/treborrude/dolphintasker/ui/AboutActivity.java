@@ -6,6 +6,6 @@ public class AboutActivity extends AboutActivity
 {
     @Override
     protected void onStartCustomAboutActivity() {
-	  super.onStartCustomAboutActivity();
+	  
 	}
 }
