@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.treborrude.dolphintasker"
-    android:versionCode="1"
-    android:versionName="1.0" >
+  package="com.github.treborrude.dolphintasker"
+  android:versionCode="1"
+  android:versionName="1.0" >
 
-    <uses-sdk 
-        android:minSdkVersion="8" 
-        android:targetSdkVersion="11" />
-
-    <application
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
-        <activity
-            android:label="@string/app_name"
-            android:name=".MainActivity" >
-            <intent-filter >
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-
+  <!-- locale-api library project requires targetSdk 17 -->
+  <uses-sdk 
+    android:minSdkVersion="8" 
+    android:targetSdkVersion="17" />
+  
+  <uses-permission android:name=
+	"com.dolphin.browser.permission.ACCESS_WEB_PAGES" />
+  
+  <application
+    android:icon="@drawable/ic_launcher"
+    android:label="@string/app_name" >
+    <activity
+      android:label="@string/app_name"
+      android:name=".AboutActivity" >
+      <intent-filter >
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.INFO" />
+      </intent-filter>
+    </activity>
+    <service android:name=".DolphinTaskerService" >
+	  <intent-filter>
+	    <action android:name="com.dolphin.browser.action.addonservice" />
+	  </intent-filter>
+	  <meta-data 
+	    android:name="dolphin_api_key"
+	    android:value="Your API key" />
+    </service>
+	<receiver android:name=".QueryReceiver" >
+	  <intent-filter>
+		<action android:name="com.twofortyfouram.locale.intent.action.QUERY_CONDITION" />
+	  </intent-filter>
+	</receiver>
+  </application>
 </manifest>
