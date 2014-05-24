@@ -16,12 +16,33 @@
     android:icon="@drawable/ic_launcher"
     android:label="@string/app_name" >
     <activity
-      android:label="@string/app_name"
+      android:label="@string/about"
       android:name=".AboutActivity" >
       <intent-filter >
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.INFO" />
       </intent-filter>
+    </activity>
+	<activity
+      android:label="@string/page_finished"
+      android:name=".PageFinishedEditActivity" >
+	  <intent-filter>
+		<action android:name="com.twofortyfouram.locale.intent.action.EDIT_CONDITION" />
+	  </intent-filter>
+    </activity>
+	<activity
+      android:label="@string/page_started"
+      android:name=".PageStartedEditActivity" >
+	  <intent-filter>
+		<action android:name="com.twofortyfouram.locale.intent.action.EDIT_CONDITION" />
+	  </intent-filter>
+    </activity>
+	<activity
+      android:label="@string/receive_title"
+      android:name=".ReceiveTitleEditActivity" >
+	  <intent-filter>
+		<action android:name="com.twofortyfouram.locale.intent.action.EDIT_CONDITION" />
+	  </intent-filter>
     </activity>
     <service android:name=".DolphinTaskerService" >
 	  <intent-filter>
