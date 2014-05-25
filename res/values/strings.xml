@@ -2,7 +2,12 @@
 <resources>
 
   <string name="app_name">DolphinTasker</string>
+
   <string name="short_description">Dolphin / Tasker integration.</string>
   <string name="long_description">A Dolphin and Tasker plugin that allows controlling Dolphin via Tasker.</string>
 
+  <string name="about">About</string>
+  <string name="page_finished">Page Finished</string>
+  <string name="page_started">Page Started</string>
+  <string name="receive_title">Receive Title</string>
 </resources>
