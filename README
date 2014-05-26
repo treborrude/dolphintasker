@@ -1,0 +1,14 @@
+DolphinTasker
+
+This project is both a Dolphin add-on and a Tasker plugin.
+It will not work without both Dolphin and Tasker installed.
+
+This plug-in is intended to expose Dolphin events (such as
+"page load completed") to Tasker. Eventually, the plugin should
+also be capable of controlling Dolphin (in whatever ways are exposed
+to the add-on API) from Tasker.
+
+This is my first major Android development project, so expect me to
+break convention out of ignorance. When you catch me doing something
+that could be done in a more standard way, feel free to enlighten me.
+
