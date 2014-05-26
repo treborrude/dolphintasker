@@ -6,6 +6,11 @@ import com.dolphin.browser.addons.WebViews;
 import com.dolphin.browser.addons.IWebView;
 import com.dolphin.browser.addons.IHttpAuthHandler;
 import android.os.RemoteException;
+import android.content.Intent;
+import android.content.Context;
+import android.net.Uri;
+import android.support.v4.content.LocalBroadcastManager;
+import com.github.treborrude.dolphintasker.ui.PageFinishedEditActivity;
 
 public class DolphinTaskerService extends AddonService
 {
@@ -15,11 +20,14 @@ public class DolphinTaskerService extends AddonService
       @Override
 	  public void onPageFinished(IWebView webView, String url)
 	  {
-	    // TODO: Save url in such a way that it can be retrieved
-		//       by the BroadcastReceiver. And perhaps a token
-		//       that indicates this was a "page finished" event.
+		Context appContext = DolphinTaskerService.this.getApplicationContext();
+		Intent broadcastEvent = new Intent(appContext, QueryReceiver.class);
+	    broadcastEvent.setAction(Constants.EVENT_DETECTED);
+		broadcastEvent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY,
+		                        com.github.treborrude.dolphintasker.ui.PageFinishedEditActivity.class.getCanonicalName());
+		broadcastEvent.setData(Uri.parse(url));
 		
-		// TODO: Request that Tasker query the BroadcastReceiver.
+		appContext.sendBroadcast(broadcastEvent);
 	  }
 
 	  @Override
