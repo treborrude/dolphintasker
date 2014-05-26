@@ -8,6 +8,11 @@ This plug-in is intended to expose Dolphin events (such as
 also be capable of controlling Dolphin (in whatever ways are exposed
 to the add-on API) from Tasker.
 
+Even at this early stage, I'm already using Tasker 4.2+ extensions
+to the plug-in API, so this plugin will not work in Locale. I may
+eventually try to acheive compatibility, but I've never used Locale,
+so it's going to be quite low on my priority list.
+
 This is my first major Android development project, so expect me to
 break convention out of ignorance. When you catch me doing something
 that could be done in a more standard way, feel free to enlighten me.
