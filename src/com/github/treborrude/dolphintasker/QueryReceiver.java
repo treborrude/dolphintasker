@@ -39,7 +39,7 @@ public class QueryReceiver extends BroadcastReceiver
       requestQuery.putExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY,
 	                        eventActivity);
 							
-	  if (com.github.treborrude.dolphintasker.ui.PageFinishedEditActivity.class.getCanonicalName().equals(eventActivity))
+	  if (com.github.treborrude.dolphintasker.ui.EventEditActivity.class.getCanonicalName().equals(eventActivity))
 	  {
 		mPageFinishedUrl = intent.getData().toString();		                      
 	  }

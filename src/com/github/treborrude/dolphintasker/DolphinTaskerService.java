@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
-import com.github.treborrude.dolphintasker.ui.PageFinishedEditActivity;
+import com.github.treborrude.dolphintasker.ui.EventEditActivity;
 
 public class DolphinTaskerService extends AddonService
 {
@@ -24,7 +24,7 @@ public class DolphinTaskerService extends AddonService
 		Intent broadcastEvent = new Intent(appContext, QueryReceiver.class);
 	    broadcastEvent.setAction(Constants.EVENT_DETECTED);
 		broadcastEvent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY,
-		                        com.github.treborrude.dolphintasker.ui.PageFinishedEditActivity.class.getCanonicalName());
+		                        com.github.treborrude.dolphintasker.ui.EventEditActivity.class.getCanonicalName());
 		broadcastEvent.setData(Uri.parse(url));
 		
 		appContext.sendBroadcast(broadcastEvent);

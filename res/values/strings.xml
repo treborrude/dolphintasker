@@ -7,6 +7,8 @@
   <string name="long_description">A Dolphin and Tasker plugin that allows controlling Dolphin via Tasker.</string>
 
   <string name="about">About</string>
+  <string name="event_edit">Dolphin Events</string>
+  <string name="info">Info</string>
   <string name="page_finished">Page Finished</string>
   <string name="page_started">Page Started</string>
   <string name="receive_title">Receive Title</string>
