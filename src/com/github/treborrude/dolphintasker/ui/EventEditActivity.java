@@ -15,7 +15,28 @@ public class EventEditActivity extends Activity
   {
 	// TODO: Implement this method
 	super.onCreate(savedInstanceState);
-    setContentView(R.layout.event_edit);
+	setContentView(R.layout.event_edit);
+	
+	final Bundle localeBundle = getIntent().getBundleExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE);
+	if (localeBundle == null)
+	{
+	  return;
+	}
+	String event = localeBundle.getString(com.github.treborrude.dolphintasker.Constants.CONDITION);
+	RadioGroup eventtype = (RadioGroup) findViewById(R.id.eventtype);
+	
+	if (getResources().getString(R.string.page_finished).equals(event))
+	{
+	  eventtype.check(R.id.page_finished);
+	}
+	else if (getResources().getString(R.string.page_started).equals(event))
+	{
+	  eventtype.check(R.id.page_started);
+	}
+	else if (getResources().getString(R.string.receive_title).equals(event))
+	{
+	  eventtype.check(R.id.receive_title);
+	}
   }
   
   public void endConfiguration(View view)
@@ -48,7 +69,6 @@ public class EventEditActivity extends Activity
 	  resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, event);
 
 	  setResult(RESULT_OK, resultIntent);
-	  setResult(Activity.RESULT_OK);
 	}
 	
 	finish();
