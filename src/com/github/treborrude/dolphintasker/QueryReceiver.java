@@ -5,39 +5,39 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.content.SharedPreferences;
 
 public class QueryReceiver extends BroadcastReceiver
 {
   private static String TAG = "QueryReceiver";
   
-  private String mPageFinishedUrl = null;
-  private String mPageStartedUrl = null;
-  private String mReceivedTitle = null;
-  
   @Override
   public void onReceive(Context context, Intent intent)
   {
 	Log.d(TAG, "onReceive");
+	SharedPreferences returnVals = context.getSharedPreferences(Constants.PREFS_NAME, 0);
 	if (com.twofortyfouram.locale.Intent.ACTION_QUERY_CONDITION.equals(intent.getAction()))
 	{
 	  Log.d(TAG, "ACTION_QUERY_CONDITION");
+	  String pfURL = returnVals.getString(Constants.PF_KEY, null);
 	  if (context.getResources().getString(R.string.page_finished).equals(intent.getStringExtra(Constants.CONDITION)) &&
-	      mPageFinishedUrl != null)
+	      pfURL != null)
 	  {
 		Log.d(TAG, "Querying page finished, and have page finished url.");
 		if (TaskerPlugin.Condition.hostSupportsVariableReturn(intent.getExtras())) 
 		{
 		  Bundle varsBundle = new Bundle();
 
-		  varsBundle.putString("%dtpurl", mPageFinishedUrl);
+		  varsBundle.putString("%dtpurl", pfURL);
 
 		  TaskerPlugin.addVariableBundle(getResultExtras(true), varsBundle);
 		}
 
 		setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_SATISFIED);
-		mPageFinishedUrl = null;
+		returnVals.edit().remove(Constants.PF_KEY);
+		returnVals.edit().commit();
 	  }
-	  else if (mPageFinishedUrl == null)
+	  else if (pfURL == null)
 	  {
 		Log.d(TAG, "Do not have page finished url.");
 	  }
@@ -58,11 +58,12 @@ public class QueryReceiver extends BroadcastReceiver
 	  if (com.github.treborrude.dolphintasker.ui.EventEditActivity.class.getCanonicalName().equals(eventActivity))
 	  {
 		Log.d(TAG, "Retrieve page finished URL.");
-		mPageFinishedUrl = intent.getData().toString();
+		returnVals.edit().putString(Constants.PF_KEY, intent.getData().toString());
+		returnVals.edit().commit();
 		
-		if (mPageFinishedUrl != null)
+		if (returnVals.getString(Constants.PF_KEY, null) != null)
 		{
-		  Log.d(TAG, String.format("Got page finished URL of %s",mPageFinishedUrl));
+		  Log.d(TAG, String.format("Got page finished URL of %s", returnVals.getString(Constants.PF_KEY, null)));
 		}
 		else
 		{

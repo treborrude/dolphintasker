@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import com.github.treborrude.dolphintasker.ui.EventEditActivity;
 import android.util.Log;
+import android.content.SharedPreferences;
 
 public class DolphinTaskerService extends AddonService
 {
@@ -93,5 +94,9 @@ public class DolphinTaskerService extends AddonService
 	  // No need for anything other than a log message in this case.
 	  Log.e(TAG, "Unable to remove page listener.", re);
 	}
+	
+	SharedPreferences returnVals = getApplicationContext().getSharedPreferences(Constants.PREFS_NAME, 0);
+	returnVals.edit().clear();
+	returnVals.edit().commit();
   }
 }
