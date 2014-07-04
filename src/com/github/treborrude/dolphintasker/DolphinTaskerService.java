@@ -11,29 +11,38 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import com.github.treborrude.dolphintasker.ui.EventEditActivity;
+import android.util.Log;
 
 public class DolphinTaskerService extends AddonService
 {
+  private static final String TAG = "DolphinTaskerService";
+  
   private WebViews.PageListener mPageListener =
     new WebViews.PageListener() 
 	{
+	  private static final String TAG = "PageListener";
+	  
       @Override
 	  public void onPageFinished(IWebView webView, String url)
 	  {
+		Log.d(TAG, "onPageFinished");
 		Context appContext = DolphinTaskerService.this.getApplicationContext();
 		Intent broadcastEvent = new Intent(appContext, QueryReceiver.class);
 	    broadcastEvent.setAction(Constants.EVENT_DETECTED);
 		broadcastEvent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY,
 		                        com.github.treborrude.dolphintasker.ui.EventEditActivity.class.getCanonicalName());
+		// TODO: Need something more to distinguish event type.
 		broadcastEvent.setData(Uri.parse(url));
 		
 		appContext.sendBroadcast(broadcastEvent);
+		Log.d(TAG, "onPageFinished broadcast sent.");
 	  }
 
 	  @Override
 	  public void onPageStarted(IWebView webView, String url)
 	  {
 	    // TODO: Implement this method
+		Log.d(TAG, "onPageStarted");
 	  }
 
 	  @Override
@@ -50,32 +59,39 @@ public class DolphinTaskerService extends AddonService
 	  public void onReceiveTitle(IWebView webView, String title)
 	  {
 	    // TODO: Implement this method
+		Log.d(TAG, "onReceiveTitle");
 	  }
 	};
 	
   @Override
   protected void onBrowserConnected(Browser browser) 
   {
+	Log.d(TAG, "onBrowserConnected");
 	try
 	{
 	  browser.webViews.addPageListener(mPageListener);
+	  Log.d(TAG, "Successfully added page listener.");
 	}
 	catch (RemoteException re)
 	{
-	  // TODO: Figure out an appropriate thing to do.
+	  // TODO: Add an error dialog?
+	  Log.e(TAG, "Unable to add page listener.", re);
 	}
   }
 
   @Override
   protected void onBrowserDisconnected(Browser browser)
   {
+	Log.d(TAG, "onBrowserDisconnected");
 	try
 	{
 	  browser.webViews.removePageListener(mPageListener);
+	  Log.d(TAG, "Successfully removed page listener.");
 	}
 	catch (RemoteException re)
 	{
-	  // TODO: Figure out an appropriate thing to do.
+	  // No need for anything other than a log message in this case.
+	  Log.e(TAG, "Unable to remove page listener.", re);
 	}
   }
 }
