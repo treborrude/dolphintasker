@@ -95,8 +95,11 @@ public class DolphinTaskerService extends AddonService
 	  Log.e(TAG, "Unable to remove page listener.", re);
 	}
 	
-	SharedPreferences returnVals = getApplicationContext().getSharedPreferences(Constants.PREFS_NAME, 0);
-	returnVals.edit().clear();
-	returnVals.edit().commit();
+	SharedPreferences.Editor rvEditor = getApplicationContext().getSharedPreferences(Constants.PREFS_NAME, 0).edit();
+	rvEditor.clear();
+	if (!rvEditor.commit())
+	{
+	  Log.e(TAG, "Unable to commit clear to SharedPreferences.");
+	}
   }
 }

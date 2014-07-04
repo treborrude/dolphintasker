@@ -34,8 +34,12 @@ public class QueryReceiver extends BroadcastReceiver
 		}
 
 		setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_SATISFIED);
-		returnVals.edit().remove(Constants.PF_KEY);
-		returnVals.edit().commit();
+		SharedPreferences.Editor rvEditor = returnVals.edit();
+		rvEditor.remove(Constants.PF_KEY);
+		if (!rvEditor.commit())
+		{
+		  Log.e(TAG, "Unable to commit PF removal to SharedPreferences.");
+		}
 	  }
 	  else if (pfURL == null)
 	  {
@@ -58,8 +62,15 @@ public class QueryReceiver extends BroadcastReceiver
 	  if (com.github.treborrude.dolphintasker.ui.EventEditActivity.class.getCanonicalName().equals(eventActivity))
 	  {
 		Log.d(TAG, "Retrieve page finished URL.");
-		returnVals.edit().putString(Constants.PF_KEY, intent.getData().toString());
-		returnVals.edit().commit();
+		String pfUrl = intent.getData().toString();
+		Log.d(TAG, String.format("PF URL: %s", pfUrl));
+		SharedPreferences.Editor rvEditor = returnVals.edit();
+		rvEditor.putString(Constants.PF_KEY, pfUrl);
+		
+		if (!rvEditor.commit())
+		{
+		  Log.e(TAG, "Unable to commit PF URL to SharedPreferences.");
+		}
 		
 		if (returnVals.getString(Constants.PF_KEY, null) != null)
 		{
