@@ -13,6 +13,7 @@
 	"com.dolphin.browser.permission.ACCESS_WEB_PAGES" />
   
   <application
+	android:debuggable="true"
     android:icon="@drawable/dolphintasker"
     android:label="@string/app_name" >
     <activity
