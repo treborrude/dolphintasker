@@ -16,7 +16,6 @@ public class QueryReceiver extends BroadcastReceiver
   public void onReceive(Context context, Intent intent)
   {
 	Log.d(TAG, "onReceive");
-	SharedPreferences returnVals = context.getSharedPreferences(Constants.PREFS_NAME, 0);
 	if (com.twofortyfouram.locale.Intent.ACTION_QUERY_CONDITION.equals(intent.getAction()))
 	{
 	  Log.d(TAG, "ACTION_QUERY_CONDITION");
@@ -30,41 +29,8 @@ public class QueryReceiver extends BroadcastReceiver
 	  }
 	  verifyCondition(context, intent, Constants.RT_KEY, R.string.receive_title, "%dtptitle");
 	}
-	else if (Constants.EVENT_DETECTED.equals(intent.getAction()))
-	{
-	  // TODO: Need to use something else to determine event type.
-	  String eventActivity = intent.getStringExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY);
-	  Log.d(TAG, String.format("Received notification of %s event", eventActivity));
-	  Intent requestQuery = new Intent(com.twofortyfouram.locale.Intent.ACTION_REQUEST_QUERY);
-      requestQuery.putExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY,
-	                        eventActivity);
-							
-	  if (com.github.treborrude.dolphintasker.ui.EventEditActivity.class.getCanonicalName().equals(eventActivity))
-	  {
-		Log.d(TAG, "Retrieve page finished URL.");
-		String pfUrl = intent.getData().toString();
-		Log.d(TAG, String.format("PF URL: %s", pfUrl));
-		SharedPreferences.Editor rvEditor = returnVals.edit();
-		rvEditor.putString(Constants.PF_KEY, pfUrl);
-		
-		if (!rvEditor.commit())
-		{
-		  Log.e(TAG, "Unable to commit PF URL to SharedPreferences.");
-		}
-		
-		if (returnVals.getString(Constants.PF_KEY, null) != null)
-		{
-		  Log.d(TAG, String.format("Got page finished URL of %s", returnVals.getString(Constants.PF_KEY, null)));
-		}
-		else
-		{
-		  Log.w(TAG, "No page finished URL present!");
-		}
-	  }
-	  
-	  context.sendBroadcast(requestQuery);
-	}
   }
+
 
   private boolean verifyCondition(Context context, Intent intent, String prefKey, int conditionKey, String varName) 
     throws Resources.NotFoundException

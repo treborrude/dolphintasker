@@ -22,28 +22,39 @@ public class DolphinTaskerService extends AddonService
     new WebViews.PageListener() 
 	{
 	  private static final String TAG = "PageListener";
-	  
+	
+	  private void eventDetected(String eventType, String eventData)
+      {	
+	    Context context = DolphinTaskerService.this.getApplicationContext();
+	    
+		SharedPreferences.Editor rvEditor = 
+		  context.getSharedPreferences(Constants.PREFS_NAME, 0).edit();
+		rvEditor.putString(eventType, eventData);
+	    
+		if (!rvEditor.commit())
+		{
+		  Log.e(TAG, String.format("Unable to commit %s data to SharedPreferences!", eventType));
+		}
+		
+		Intent requestQuery = new Intent(com.twofortyfouram.locale.Intent.ACTION_REQUEST_QUERY);
+	    requestQuery.putExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY,
+                              com.github.treborrude.dolphintasker.ui.EventEditActivity.class.getCanonicalName());
+	    context.sendBroadcast(requestQuery);
+	  }
+	
       @Override
 	  public void onPageFinished(IWebView webView, String url)
 	  {
 		Log.d(TAG, "onPageFinished");
-		Context appContext = DolphinTaskerService.this.getApplicationContext();
-		Intent broadcastEvent = new Intent(appContext, QueryReceiver.class);
-	    broadcastEvent.setAction(Constants.EVENT_DETECTED);
-		broadcastEvent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY,
-		                        com.github.treborrude.dolphintasker.ui.EventEditActivity.class.getCanonicalName());
-		// TODO: Need something more to distinguish event type.
-		broadcastEvent.setData(Uri.parse(url));
-		
-		appContext.sendBroadcast(broadcastEvent);
+		eventDetected(Constants.PF_KEY, url);
 		Log.d(TAG, "onPageFinished broadcast sent.");
 	  }
-
+	
 	  @Override
 	  public void onPageStarted(IWebView webView, String url)
 	  {
-	    // TODO: Implement this method
 		Log.d(TAG, "onPageStarted");
+		eventDetected(Constants.PS_KEY, url);
 	  }
 
 	  @Override
@@ -59,8 +70,8 @@ public class DolphinTaskerService extends AddonService
 	  @Override
 	  public void onReceiveTitle(IWebView webView, String title)
 	  {
-	    // TODO: Implement this method
 		Log.d(TAG, "onReceiveTitle");
+		eventDetected(Constants.RT_KEY, title);
 	  }
 	};
 	
@@ -75,7 +86,8 @@ public class DolphinTaskerService extends AddonService
 	}
 	catch (RemoteException re)
 	{
-	  // TODO: Add an error dialog?
+	  // TODO: Add an error dialog? I think I'll need a
+	  // NotificationManager to do it.
 	  Log.e(TAG, "Unable to add page listener.", re);
 	}
   }
