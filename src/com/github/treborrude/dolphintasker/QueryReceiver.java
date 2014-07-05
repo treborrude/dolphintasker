@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 
 public class QueryReceiver extends BroadcastReceiver
 {
@@ -19,36 +20,15 @@ public class QueryReceiver extends BroadcastReceiver
 	if (com.twofortyfouram.locale.Intent.ACTION_QUERY_CONDITION.equals(intent.getAction()))
 	{
 	  Log.d(TAG, "ACTION_QUERY_CONDITION");
-	  String pfURL = returnVals.getString(Constants.PF_KEY, null);
-	  if (context.getResources().getString(R.string.page_finished).equals(intent.getStringExtra(Constants.CONDITION)) &&
-	      pfURL != null)
+	  if (verifyCondition(context, intent, Constants.PF_KEY, R.string.page_finished, "%dtpurl"))
 	  {
-		Log.d(TAG, "Querying page finished, and have page finished url.");
-		if (TaskerPlugin.Condition.hostSupportsVariableReturn(intent.getExtras())) 
-		{
-		  Bundle varsBundle = new Bundle();
-
-		  varsBundle.putString("%dtpurl", pfURL);
-
-		  TaskerPlugin.addVariableBundle(getResultExtras(true), varsBundle);
-		}
-
-		setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_SATISFIED);
-		SharedPreferences.Editor rvEditor = returnVals.edit();
-		rvEditor.remove(Constants.PF_KEY);
-		if (!rvEditor.commit())
-		{
-		  Log.e(TAG, "Unable to commit PF removal to SharedPreferences.");
-		}
+		return;
 	  }
-	  else if (pfURL == null)
+	  if (verifyCondition(context, intent, Constants.PS_KEY, R.string.page_started, "%dtpurl"))
 	  {
-		Log.d(TAG, "Do not have page finished url.");
+		return;
 	  }
-	  else
-	  {
-		Log.d(TAG, String.format("Querying %s, not page finished.", intent.getStringExtra(Constants.CONDITION)));
-	  }
+	  verifyCondition(context, intent, Constants.RT_KEY, R.string.receive_title, "%dtptitle");
 	}
 	else if (Constants.EVENT_DETECTED.equals(intent.getAction()))
 	{
@@ -84,5 +64,38 @@ public class QueryReceiver extends BroadcastReceiver
 	  
 	  context.sendBroadcast(requestQuery);
 	}
+  }
+
+  private boolean verifyCondition(Context context, Intent intent, String prefKey, int conditionKey, String varName) 
+    throws Resources.NotFoundException
+  {
+	SharedPreferences returnVals = context.getSharedPreferences(Constants.PREFS_NAME, 0);
+	String returnVal = returnVals.getString(prefKey, null);
+	String conditionString = context.getResources().getString(conditionKey);
+	if (conditionString.equals(intent.getStringExtra(Constants.CONDITION)) &&
+		returnVal != null)
+	{
+	  Log.d(TAG, String.format("Querying %s, and have return value.", conditionString));
+	  if (TaskerPlugin.Condition.hostSupportsVariableReturn(intent.getExtras())) 
+	  {
+		Bundle varsBundle = new Bundle();
+
+		varsBundle.putString(varName, returnVal);
+
+		TaskerPlugin.addVariableBundle(getResultExtras(true), varsBundle);
+	  }
+
+	  setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_SATISFIED);
+	  SharedPreferences.Editor rvEditor = returnVals.edit();
+	  rvEditor.remove(prefKey);
+	  if (!rvEditor.commit())
+	  {
+		Log.e(TAG, String.format("Unable to commit %s removal to SharedPreferences.", prefKey));
+	  }
+	  
+	  return true;
+	}
+	
+	return false;
   }
 }
