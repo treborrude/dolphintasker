@@ -20,3 +20,7 @@ that could be done in a more standard way, feel free to enlighten me.
 I have finally received my Dolphin API key, so developent is underway
 again. However, I'm still inexperienced and don't have a great deal of
 time to dedicate to this project, so development will still be slow.
+
+This project only supports building in AIDE on Android at the moment.
+Commits to support building in Eclipse / ADT or Android Studio would
+be welcome, as long as they don't interfere with building in AIDE.
