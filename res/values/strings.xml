@@ -4,7 +4,19 @@
   <string name="app_name">DolphinTasker</string>
 
   <string name="short_description">Dolphin / Tasker integration.</string>
-  <string name="long_description">A Dolphin and Tasker plugin that allows controlling Dolphin via Tasker.</string>
+  <string name="long_description">
+	<![CDATA[
+	  <html>
+		<body>
+		  A plugin for both <a href="https://play.google.com/store/apps/details?id=mobi.mgeek.TunnyBrowser">Dolphin</a>
+		  and <a href="https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm">Tasker</a>
+		  that creates a bridge between the two, allowing Tasker to notice
+		  certain events in Dolphin.<p/>
+		  While <a href="https://play.google.com/store/apps/details?id=com.github.treborrude.dolphintasker">DolphinTasker</a>
+		  is a useful bridge, it pales in comparison to <a href="https://github.com/treborrude/dolphintasker/wiki/The-Best-Bridge-of-All">the best bridge of all</a>.
+		</body>
+      </html>]]>
+  </string>
 
   <string name="about">About</string>
   <string name="event_edit">Dolphin Events</string>
