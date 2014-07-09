@@ -13,6 +13,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.github.treborrude.dolphintasker.ui.EventEditActivity;
 import android.util.Log;
 import android.content.SharedPreferences;
+import android.graphics.drawable.BitmapDrawable;
 
 public class DolphinTaskerService extends AddonService
 {
@@ -89,6 +90,24 @@ public class DolphinTaskerService extends AddonService
 	  // TODO: Add an error dialog? I think I'll need a
 	  // NotificationManager to do it.
 	  Log.e(TAG, "Unable to add page listener.", re);
+	}
+	try
+	{
+	  browser.addonBarAction.setTitle(getString(R.string.app_name));
+	  Log.d(TAG, "Successfully set addon bar title.");
+	}
+	catch (RemoteException re)
+	{
+	  Log.e(TAG, "Unable to set addon bar title.");
+	}
+	try
+	{
+	  browser.addonBarAction.setIcon(((BitmapDrawable)getDrawable(R.drawable.dolphintasker)).getBitmap());
+	  Log.d(TAG, "Successfully set addon bar icon.");
+	}
+	catch (RemoteException re)
+	{
+	  Log.e(TAG, "Unable to set addon bar icon.");
 	}
   }
 
