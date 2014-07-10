@@ -1,19 +1,20 @@
 package com.github.treborrude.dolphintasker;
 
-import com.dolphin.browser.addons.AddonService;
-import com.dolphin.browser.addons.Browser;
-import com.dolphin.browser.addons.WebViews;
-import com.dolphin.browser.addons.IWebView;
-import com.dolphin.browser.addons.IHttpAuthHandler;
-import android.os.RemoteException;
-import android.content.Intent;
 import android.content.Context;
-import android.net.Uri;
-import android.support.v4.content.LocalBroadcastManager;
-import com.github.treborrude.dolphintasker.ui.EventEditActivity;
-import android.util.Log;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.BitmapFactory;
+import android.os.RemoteException;
+import android.text.Html;
+import android.util.Log;
+import android.widget.RemoteViews;
+import com.dolphin.browser.addons.AddonService;
+import com.dolphin.browser.addons.AlertDialogBuilder;
+import com.dolphin.browser.addons.Browser;
+import com.dolphin.browser.addons.IHttpAuthHandler;
+import com.dolphin.browser.addons.IWebView;
+import com.dolphin.browser.addons.OnClickListener;
+import com.dolphin.browser.addons.WebViews;
 
 public class DolphinTaskerService extends AddonService
 {
@@ -87,27 +88,49 @@ public class DolphinTaskerService extends AddonService
 	}
 	catch (RemoteException re)
 	{
-	  // TODO: Add an error dialog? I think I'll need a
-	  // NotificationManager to do it.
+	  // TODO: Probably best to have an error dialog in this case, since
+	  // the plugin won't function correctly without the page listener.
+	  // Need to use browser.window.showDialog(). I have no idea how to
+	  // test whether or not it works, though, since this is a very unlikely
+	  // case.
 	  Log.e(TAG, "Unable to add page listener.", re);
 	}
 	try
 	{
 	  browser.addonBarAction.setTitle(getString(R.string.app_name));
 	  Log.d(TAG, "Successfully set addon bar title.");
-	}
-	catch (RemoteException re)
-	{
-	  Log.e(TAG, "Unable to set addon bar title.");
-	}
-	try
-	{
-	  browser.addonBarAction.setIcon(((BitmapDrawable)getDrawable(R.drawable.dolphintasker)).getBitmap());
+	  browser.addonBarAction.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.dolphintasker));
 	  Log.d(TAG, "Successfully set addon bar icon.");
+	  browser.addonBarAction.setOnClickListener(new OnClickListener()
+	  {
+		@Override
+		public void onClick(Browser browser)
+		{
+		  Log.d(TAG, "OnClickListener.onClick()");
+		  AlertDialogBuilder info_dialog = new AlertDialogBuilder();
+		  info_dialog.setTitle("About DolphinTasker");
+		  info_dialog.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.dolphintasker));
+		  RemoteViews info_view = new RemoteViews("com.github.treborrude.dolphintasker",
+		                                          R.layout.info);
+		  info_view.setTextViewText(R.id.description, Html.fromHtml(getString(R.string.long_description)));
+		  info_view.setInt(R.id.description, "setBackgroundColor", android.graphics.Color.BLACK);
+		  info_dialog.setView(info_view);
+		  try
+		  {
+		    browser.window.showDialog(info_dialog);
+		  }
+		  catch (RemoteException re)
+		  {
+			Log.e(TAG, "Unable to show info dialog.", re);
+		  }
+		}
+	  });
+	  browser.addonBarAction.show();
 	}
 	catch (RemoteException re)
 	{
-	  Log.e(TAG, "Unable to set addon bar icon.");
+	  // This isn't critical, the plugin will still function.
+	  Log.e(TAG, "Problem setting up AddonBar.");
 	}
   }
 
