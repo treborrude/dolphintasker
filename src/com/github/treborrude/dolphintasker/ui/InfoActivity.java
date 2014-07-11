@@ -2,10 +2,11 @@ package com.github.treborrude.dolphintasker.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import com.github.treborrude.dolphintasker.R;
-import android.widget.TextView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.View;
+import android.widget.TextView;
+import com.github.treborrude.dolphintasker.R;
 
 public class InfoActivity extends Activity
 {
@@ -19,4 +20,8 @@ public class InfoActivity extends Activity
 	description.setMovementMethod(LinkMovementMethod.getInstance());
   }
   
+  public void doneClicked(View v)
+  {
+	finish();
+  }
 }
