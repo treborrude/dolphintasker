@@ -1,15 +1,13 @@
 package com.github.treborrude.dolphintasker;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.RemoteException;
-import android.text.Html;
 import android.util.Log;
-import android.widget.RemoteViews;
 import com.dolphin.browser.addons.AddonService;
-import com.dolphin.browser.addons.AlertDialogBuilder;
 import com.dolphin.browser.addons.Browser;
 import com.dolphin.browser.addons.IHttpAuthHandler;
 import com.dolphin.browser.addons.IWebView;
@@ -106,23 +104,16 @@ public class DolphinTaskerService extends AddonService
 		@Override
 		public void onClick(Browser browser)
 		{
+		  // I considered using a dialog here, but I couldn't find
+		  // a way to make the links in the InfoActivity work under
+		  // RemoteViews. So I just launch the activity instead.
+		  
 		  Log.d(TAG, "OnClickListener.onClick()");
-		  AlertDialogBuilder info_dialog = new AlertDialogBuilder();
-		  info_dialog.setTitle("About DolphinTasker");
-		  info_dialog.setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.dolphintasker));
-		  RemoteViews info_view = new RemoteViews("com.github.treborrude.dolphintasker",
-		                                          R.layout.info);
-		  info_view.setTextViewText(R.id.description, Html.fromHtml(getString(R.string.long_description)));
-		  info_view.setInt(R.id.description, "setBackgroundColor", android.graphics.Color.BLACK);
-		  info_dialog.setView(info_view);
-		  try
-		  {
-		    browser.window.showDialog(info_dialog);
-		  }
-		  catch (RemoteException re)
-		  {
-			Log.e(TAG, "Unable to show info dialog.", re);
-		  }
+		  Intent launch_info = new Intent();
+		  launch_info.setComponent(new ComponentName("com.github.treborrude.dolphintasker",
+		                                             "com.github.treborrude.dolphintasker.ui.InfoActivity"));
+		  launch_info.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		  DolphinTaskerService.this.startActivity(launch_info);
 		}
 	  });
 	  browser.addonBarAction.show();
