@@ -3,5 +3,11 @@
   <string name="rv_ps_dtpurl">%dtpurl\nPage Started URL\nURL of the page that has started loading.</string>
   <string name="rv_pf_dtpurl">%dtpurl\nPage Finished URL\nURL of the page that has finished loading.</string>
   <string name="rv_rt_dtptitle">%dtptitle\nPage Title\nPage title that has been received.</string>
+  <string name="rv_dls_dtpurl">%dtpurl\nDownloading File URL\nURL of the file that has started downloading.</string>
+  <string name="rv_dls_dtpua">%dtpua\nUser Agent for Download\nUser agent string that was used in the downlooad request.</string>
+  <string name="rv_dls_dtpcd">%dtpcd\nContent dispostion for Download\nContent disposition of download request.</string>
+  <string name="rv_dls_dtpmt">%dtpmt\nMime type of Download Request\nThe mime type requested for download.</string>
+  <string name="rv_dls_dtplength">%dtplength\nLength of Download\nLength of downloading file.</string>
 </resources>
+
 
