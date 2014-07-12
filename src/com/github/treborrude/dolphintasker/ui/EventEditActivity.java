@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.github.treborrude.dolphintasker.R;
 import android.view.View;
 import android.widget.RadioGroup;
+import com.github.treborrude.dolphintasker.TaskerPlugin;
 
 public class EventEditActivity extends Activity
 {
@@ -44,18 +45,25 @@ public class EventEditActivity extends Activity
 	RadioGroup eventtype = (RadioGroup) findViewById(R.id.eventtype);
 	int selected_event = eventtype.getCheckedRadioButtonId();
 	String event = null;
+	String[] relevantVariables = null;
 	
 	if (selected_event == R.id.page_finished)
 	{
 	  event = getResources().getString(R.string.page_finished);
+	  relevantVariables = new String[1];
+	  relevantVariables[0] = getString(R.string.rv_pf_dtpurl);
 	}
 	else if (selected_event == R.id.page_started)
 	{
 	  event = getResources().getString(R.string.page_started);
+	  relevantVariables = new String[1];
+	  relevantVariables[0] = getString(R.string.rv_ps_dtpurl);
 	}
 	else if (selected_event == R.id.receive_title)
 	{
 	  event = getResources().getString(R.string.receive_title);
+	  relevantVariables = new String[1];
+	  relevantVariables[0] = getString(R.string.rv_rt_dtptitle);
 	}
 	
 	if (event != null)
@@ -68,6 +76,11 @@ public class EventEditActivity extends Activity
 	  resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
 	  resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, event);
 
+	  if (TaskerPlugin.hostSupportsRelevantVariables(getIntent().getExtras()) &&
+	      relevantVariables != null)
+	  {
+		TaskerPlugin.addRelevantVariableList(resultIntent, relevantVariables);
+	  }
 	  setResult(RESULT_OK, resultIntent);
 	}
 	
