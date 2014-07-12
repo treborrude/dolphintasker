@@ -9,9 +9,27 @@
     android:minSdkVersion="8" 
     android:targetSdkVersion="17" />
   
+  <!-- Allows Tasker to notice page started, page finished,
+	   and title received events. -->
   <uses-permission android:name=
 	"com.dolphin.browser.permission.ACCESS_WEB_PAGES" />
+  <!-- Allows Tasker to react to and start downloads. -->
+  <uses-permission android:name=
+    "com.dolphin.browser.permission.MANAGE_DOWNLOADS" />
   
+  <!-- Allows Tasker to search history and notice when history
+	   changes happen (though that doesn't seem too useful, since
+	   Dolphin only tells the observer that something happened, not
+	   WHAT happened. -->
+  <!-- <uses-permission android:name=
+	      "com.dolphin.browser.permission.READ_HISTORY" /> -->
+  <!-- Allows Tasker to add and remove history URIs. -->
+  <!-- <uses-permission android:name=
+	      "com.dolphin.browser.permission.WRITE_HISTORY" /> -->
+  <!-- Allows Tasker to create a new tab. -->
+  <!-- <uses-permission android:name=
+	     "com.dolphin.browser.permission.MANAGE_TABS" /> -->
+		  
   <application
 	android:debuggable="true"
     android:icon="@drawable/dolphintasker"

@@ -13,6 +13,9 @@ import com.dolphin.browser.addons.IHttpAuthHandler;
 import com.dolphin.browser.addons.IWebView;
 import com.dolphin.browser.addons.OnClickListener;
 import com.dolphin.browser.addons.WebViews;
+import com.dolphin.browser.addons.Downloads;
+import com.dolphin.browser.addons.DownloadInfo;
+import com.dolphin.browser.addons.AlertDialogBuilder;
 
 public class DolphinTaskerService extends AddonService
 {
@@ -75,6 +78,26 @@ public class DolphinTaskerService extends AddonService
 	  }
 	};
 	
+  private Downloads.DownloadClient mDownloadClient = 
+    new Downloads.DownloadClient()
+  {
+	@Override
+    public void onDownloadEnded(DownloadInfo downloadInfo)
+	{
+	  
+	}
+	
+	@Override
+	public boolean onDownloadStart(String url,
+                                   String userAgent,
+								   String contentDisposition,
+								   String mimetype,
+							       long contentLength)
+	{
+	  return false;
+	}
+  };
+
   @Override
   protected void onBrowserConnected(Browser browser) 
   {
@@ -86,12 +109,19 @@ public class DolphinTaskerService extends AddonService
 	}
 	catch (RemoteException re)
 	{
-	  // TODO: Probably best to have an error dialog in this case, since
-	  // the plugin won't function correctly without the page listener.
-	  // Need to use browser.window.showDialog(). I have no idea how to
-	  // test whether or not it works, though, since this is a very unlikely
-	  // case.
+	  // I have no idea how to test whether or not this works,
+	  // since this is a very unlikely case.
 	  Log.e(TAG, "Unable to add page listener.", re);
+	  showErrorDialog(browser, R.string.ed_pl_title, R.string.ed_pl_message);
+	}
+	try
+	{
+	  browser.downloads.registerDownloadClient(mDownloadClient);
+	}
+	catch (RemoteException re)
+	{
+	  Log.e(TAG, "Unable to add download client.");
+	  showErrorDialog(browser, R.string.ed_dlc_title, R.string.ed_dlc_message);
 	}
 	try
 	{
@@ -145,6 +175,25 @@ public class DolphinTaskerService extends AddonService
 	if (!rvEditor.commit())
 	{
 	  Log.e(TAG, "Unable to commit clear to SharedPreferences.");
+	}
+  }
+
+  private void showErrorDialog(Browser browser,
+                               int titleResId,
+							   int messageResId)
+  {
+	AlertDialogBuilder errorDialog = new AlertDialogBuilder();
+	errorDialog.setTitle(getString(titleResId));
+	errorDialog.setIcon(BitmapFactory.decodeResource(getResources(),
+													 R.drawable.dolphintasker));
+	errorDialog.setMessage(getString(messageResId));
+	try
+	{
+	  browser.window.showDialog(errorDialog);
+	}
+	catch (RemoteException re)
+	{
+	  Log.e(TAG, "Error showing error dialog.", re);
 	}
   }
 }
