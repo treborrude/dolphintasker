@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- These resources do NOT need to be localized. -->
+<resources>
+  <string-array name="tasker_events">
+	<item>@string/dl_started</item>
+	<item>@string/dl_finished</item>
+	<item>@string/page_started</item>
+	<item>@string/page_finished</item>
+	<item>@string/title_received</item>
+  </string-array>
+  
+  <string-array name="string_matches">
+	<item></item>
+	<item>@string/sm_equals</item>
+	<item>@string/sm_not_equals</item>
+	<item>@string/sm_match_regex</item>
+	<item>@string/sm_not_match_regex</item>
+  </string-array>
+  
+  <string-array name="number_matches">
+	<item></item>
+	<item>=</item>
+	<item>!=</item>
+	<item>&lt;</item>
+	<item>&gt;</item>
+	<item>&lt;=</item>
+	<item>&gt;=</item>
+  </string-array>
+</resources>
+
