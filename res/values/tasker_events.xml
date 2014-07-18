@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- These resources should be localized. -->
+<resources>
+  <string name="dl_started">Download Started</string>
+  <string name="dl_finished">Download Finished</string>
+  <string name="page_started">Page Started</string>
+  <string name="page_finished">Page Finished</string>
+  <string name="title_received">Page Title Received</string>
+</resources>
+
