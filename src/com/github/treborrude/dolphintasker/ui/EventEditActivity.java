@@ -7,64 +7,48 @@ import com.github.treborrude.dolphintasker.R;
 import android.view.View;
 import android.widget.RadioGroup;
 import com.github.treborrude.dolphintasker.TaskerPlugin;
+import android.view.Menu;
+import android.view.MenuItem;
+import com.github.treborrude.dolphintasker.ui.EventSelectFragment;
+import android.app.FragmentManager;
 
-public class EventEditActivity extends Activity
+// Activity which is called by Tasker to configure DolphinTasker events.
+// Tasker expects this activity to return a result. Due to that, and
+// a desire to use a Fragment-based design, I felt it was easier to
+// use the single-activity-multiple-fragments design, managing everything
+// in code.
+
+public class EventEditActivity 
+  extends Activity 
+  implements EventSelectFragment.EventTypeSelected
 {
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
-	// TODO: Implement this method
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.event_edit);
-	
+
+    FragmentManager fragmentManager = getFragmentManager();
+
+    fragmentManager.beginTransaction().add(new EventSelectFragment(), "event_select").commit();	
 	final Bundle localeBundle = getIntent().getBundleExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE);
 	if (localeBundle == null)
 	{
 	  return;
 	}
-	String event = localeBundle.getString(com.github.treborrude.dolphintasker.Constants.CONDITION);
-	RadioGroup eventtype = (RadioGroup) findViewById(R.id.eventtype);
-	
-	if (getResources().getString(R.string.page_finished).equals(event))
-	{
-	  eventtype.check(R.id.page_finished);
-	}
-	else if (getResources().getString(R.string.page_started).equals(event))
-	{
-	  eventtype.check(R.id.page_started);
-	}
-	else if (getResources().getString(R.string.receive_title).equals(event))
-	{
-	  eventtype.check(R.id.receive_title);
-	}
+  }
+
+  @Override
+  public void onEventTypeSelected(String event_type)
+  {
+	// TODO: Launch details activity for selected event.
+	String[] event_types = getResources().getStringArray(R.array.tasker_events);
   }
   
   public void endConfiguration(View view)
   {
-	RadioGroup eventtype = (RadioGroup) findViewById(R.id.eventtype);
-	int selected_event = eventtype.getCheckedRadioButtonId();
 	String event = null;
 	String[] relevantVariables = null;
-	
-	if (selected_event == R.id.page_finished)
-	{
-	  event = getResources().getString(R.string.page_finished);
-	  relevantVariables = new String[1];
-	  relevantVariables[0] = getString(R.string.rv_pf_dtpurl);
-	}
-	else if (selected_event == R.id.page_started)
-	{
-	  event = getResources().getString(R.string.page_started);
-	  relevantVariables = new String[1];
-	  relevantVariables[0] = getString(R.string.rv_ps_dtpurl);
-	}
-	else if (selected_event == R.id.receive_title)
-	{
-	  event = getResources().getString(R.string.receive_title);
-	  relevantVariables = new String[1];
-	  relevantVariables[0] = getString(R.string.rv_rt_dtptitle);
-	}
 	
 	if (event != null)
 	{
@@ -86,5 +70,6 @@ public class EventEditActivity extends Activity
 	
 	finish();
   }
+
   
 }
