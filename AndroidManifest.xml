@@ -4,9 +4,14 @@
   android:versionCode="1"
   android:versionName="1.0" >
 
-  <!-- locale-api library project requires targetSdk 17 -->
+  <!-- locale-api library project requires targetSdk 17.
+	   Tasker has a minSdk of 14, and I can't verify that
+	   it uses the Play store's ability to host multiple APKs
+	   for Gingerbread support, so I'll keep my minSdk at 14,
+	   allowing to me to use native Fragment and ActionBar
+	   support. -->
   <uses-sdk 
-    android:minSdkVersion="8" 
+    android:minSdkVersion="14" 
     android:targetSdkVersion="17" />
   
   <!-- Allows Tasker to notice page started, page finished,
