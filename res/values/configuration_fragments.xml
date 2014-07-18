@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- These resources should be localized. -->
+<resources>
+  <string name="cf_all_match">If multiple items are specified, the %1$s must match all of them for this event to be triggered. If all items are left empty, any %2$s will trigger the event.</string>
+  <string name="cf_url">URL:</string>
+  <string name="cf_ua">User Agent:</string>
+  <string name="cf_cd">Content Disposition:</string>
+  <string name="cf_mt">MIME Type:</string>
+  <string name="cf_length">Content Length:</string>
+</resources>
