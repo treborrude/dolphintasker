@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- These resources should be localized. -->
 <resources>
   <string name="rv_ps_dtpurl">%dtpurl\nPage Started URL\nURL of the page that has started loading.</string>
   <string name="rv_pf_dtpurl">%dtpurl\nPage Finished URL\nURL of the page that has finished loading.</string>

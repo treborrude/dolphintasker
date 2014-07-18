@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- These resources should be localized. -->
 <resources>
   <string name="ed_pl_title">Error Adding PageListener</string>
   <string name="ed_pl_message">Unable to add PageListener.\nPage started, page finished, and receive title events will not function.</string>
