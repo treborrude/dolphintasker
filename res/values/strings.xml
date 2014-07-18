@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- These resources should be localized. -->
 <resources>
 
   <string name="app_name">DolphinTasker</string>
@@ -21,7 +22,4 @@
   <string name="about">About</string>
   <string name="event_edit">Dolphin Events</string>
   <string name="info">Info</string>
-  <string name="page_finished">Page Finished</string>
-  <string name="page_started">Page Started</string>
-  <string name="receive_title">Receive Title</string>
 </resources>
