@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+      android:id="@+id/mi_save"
+      android:title="@string/mi_save"
+	  android:icon="@drawable/ic_action_save"
+	  android:showAsAction="ifRoom|withText"/>
+	  
+	<item
+	  android:id="@+id/mi_cancel"
+	  android:title="@string/mi_cancel"
+	  android:icon="@drawable/ic_action_cancel"
+	  android:showAsAction="ifRoom|withText"/>
+
+</menu>
