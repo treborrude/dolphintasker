@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- These resources do NOT need to be localized. -->
 <resources>
+  <!-- Array of Dolphin events that will appear in Tasker's "Event"
+	   category. Items of this array should be references to localized
+	   strings. If any modifications are made to this array, equivalent
+	   modifications should be made to the "event_types" array immediately
+	   below this array. -->
+	   
   <string-array name="tasker_events">
 	<item>@string/dl_started</item>
 	<item>@string/dl_finished</item>
 	<item>@string/page_started</item>
 	<item>@string/page_finished</item>
 	<item>@string/title_received</item>
+  </string-array>
+  
+  <!-- This must match the tasker_events array with non-localized names,
+	   so that they can be used to construct the names of other resources.
+	   If this array is modified, ensure that you make an equivalent
+	   modification to the "tasker_events" array immediately above
+	   this one. -->
+
+  <string-array name="event_types">
+	<item>download_started</item>
+	<item>download_finished</item>
+	<item>page_started</item>
+	<item>page_finished</item>
+	<item>title_received</item>
   </string-array>
   
   <string-array name="string_matches">
