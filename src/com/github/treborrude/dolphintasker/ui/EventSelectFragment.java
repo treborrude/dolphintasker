@@ -17,7 +17,7 @@ public class EventSelectFragment extends ListFragment
 {
   public interface EventTypeSelected
   {
-	void onEventTypeSelected(String event_type);
+	void onEventTypeSelected(String event_type, String event_name);
   }
   
   private EventTypeSelected mEventTypeSelectedCallback = null;
@@ -27,7 +27,8 @@ public class EventSelectFragment extends ListFragment
   {
 	if (mEventTypeSelectedCallback != null)
 	{
-	  mEventTypeSelectedCallback.onEventTypeSelected(getResources().getStringArray(R.array.tasker_events)[position]);
+	  mEventTypeSelectedCallback.onEventTypeSelected(getResources().getStringArray(R.array.event_types)[position],
+	                                                 getResources().getStringArray(R.array.tasker_events)[position]);
 	}
 	super.onListItemClick(l, v, position, id);
   }
