@@ -50,20 +50,17 @@ public class EventEditActivity extends Activity
 	if (selected_event == R.id.page_finished)
 	{
 	  event = getResources().getString(R.string.page_finished);
-	  relevantVariables = new String[1];
-	  relevantVariables[0] = getString(R.string.rv_pf_dtpurl);
+	  relevantVariables = getResources().getStringArray(R.array.rv_page_finished);
 	}
 	else if (selected_event == R.id.page_started)
 	{
 	  event = getResources().getString(R.string.page_started);
-	  relevantVariables = new String[1];
-	  relevantVariables[0] = getString(R.string.rv_ps_dtpurl);
+	  relevantVariables = getResources().getStringArray(R.array.rv_page_started);
 	}
 	else if (selected_event == R.id.receive_title)
 	{
 	  event = getResources().getString(R.string.receive_title);
-	  relevantVariables = new String[1];
-	  relevantVariables[0] = getString(R.string.rv_rt_dtptitle);
+	  relevantVariables = getResources().getStringArray(R.array.rv_title_received);
 	}
 	
 	if (event != null)
