@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- These resources should be localized. -->
+<resources>
+  <string name="mi_save">Save</string>
+  <string name="mi_cancel">Cancel</string>
+</resources>
+

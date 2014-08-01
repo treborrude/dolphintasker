@@ -9,6 +9,8 @@ import android.widget.RadioGroup;
 import com.github.treborrude.dolphintasker.TaskerPlugin;
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class EventEditActivity extends Activity
 {
@@ -29,8 +31,34 @@ public class EventEditActivity extends Activity
 	RadioGroup eventtype = (RadioGroup) findViewById(R.id.eventtype);
 	eventtype.check(event);
   }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+	getMenuInflater().inflate(R.menu.event_edit_options, menu);
+	return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+	if (item.getItemId() == R.id.mi_save)
+	{
+	  endConfiguration();
+	  return true;
+	}
+	else if (item.getItemId() == R.id.mi_cancel)
+	{
+	  finish();
+	  return true;
+	}
+
+	// Is this necessary? Would it be better to log
+	// an error and pop up a dialog?
+	return super.onOptionsItemSelected(item);
+  }
   
-  public void endConfiguration(View view)
+  public void endConfiguration()
   {
 	RadioGroup eventtype = (RadioGroup) findViewById(R.id.eventtype);
 	int selected_event = eventtype.getCheckedRadioButtonId();
