@@ -13,6 +13,9 @@ import java.util.Map;
 public class QueryReceiver extends BroadcastReceiver
 {
   private static String LOG_TAG = "QueryReceiver";
+
+  // Since the lifetime of a BroadcastReceiver object is very short, this Map needs to
+  // have static lifetime instead of object lifetime.
   private static Map<Integer, Bundle> mDetectedEvents = new HashMap<Integer, Bundle>();
   
   @Override
