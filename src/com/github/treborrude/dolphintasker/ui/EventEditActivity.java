@@ -66,7 +66,7 @@ public class EventEditActivity extends Activity
 	
 	if (selected_event == -1)
 	{
-	  Toast.makeText(this, "Please select an option.", Toast.LENGTH_SHORT).show();
+	  Toast.makeText(this, R.string.em_select_option, Toast.LENGTH_SHORT).show();
 	  return;
 	}
 	
