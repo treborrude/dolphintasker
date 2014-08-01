@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class EventEditActivity extends Activity
 {
@@ -62,6 +63,13 @@ public class EventEditActivity extends Activity
   {
 	RadioGroup eventtype = (RadioGroup) findViewById(R.id.eventtype);
 	int selected_event = eventtype.getCheckedRadioButtonId();
+	
+	if (selected_event == -1)
+	{
+	  Toast.makeText(this, "Please select an option.", Toast.LENGTH_SHORT).show();
+	  return;
+	}
+	
 	Resources resources = getResources();
 	String selected_event_name = resources.getResourceEntryName(selected_event);
 	String event_name = null;
