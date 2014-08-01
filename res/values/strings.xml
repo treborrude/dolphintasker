@@ -21,7 +21,4 @@
   <string name="about">About</string>
   <string name="event_edit">Dolphin Events</string>
   <string name="info">Info</string>
-  <string name="page_finished">Page Finished</string>
-  <string name="page_started">Page Started</string>
-  <string name="receive_title">Receive Title</string>
 </resources>
