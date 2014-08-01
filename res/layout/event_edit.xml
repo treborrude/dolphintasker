@@ -13,23 +13,37 @@
 		android:layout_gravity="center"
 		android:id="@+id/eventtype">
 
+		<!-- The RadioButton id names will be used construct the names
+		     of other resources. -->
+		<RadioButton
+		    android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="@string/en_download_finished"
+			android:id="@+id/download_finished"/>
+			
+		<RadioButton
+		    android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="@string/en_download_started"
+			android:id="@+id/download_started"/>
+
 		<RadioButton
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="@string/page_finished"
+			android:text="@string/en_page_finished"
 			android:id="@+id/page_finished"/>
 
 		<RadioButton
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="@string/page_started"
+			android:text="@string/en_page_started"
 			android:id="@+id/page_started"/>
 
 		<RadioButton
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="@string/receive_title"
-			android:id="@+id/receive_title"/>
+			android:text="@string/en_page_title_received"
+			android:id="@+id/page_title_received"/>
 
 	</RadioGroup>
 
