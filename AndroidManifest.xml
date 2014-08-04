@@ -65,7 +65,7 @@
 	  </intent-filter>
 	  <meta-data 
 	    android:name="dolphin_api_key"
-	    android:value="No3djgN6IC2KXFUcMxI/JqH4UejbXcX6HYqFKrmpP66DmLWoAT+NNHFNHrzDKv4rOmJDAcBUSbWn8nrkVn6AyzpFI9pHFHJD4DGfgF4rbfDZu6OxKJCt4B6cvEQarwhq7T+Mb0ihhkgXHPpuQW/mrJxJY4M7A5b5pyU5x5gX8qo=" />
+	    android:value="@string/dolphin_api_key" />
     </service>
 	<receiver android:name=".QueryReceiver" >
 	  <intent-filter>
