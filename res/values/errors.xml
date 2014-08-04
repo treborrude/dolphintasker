@@ -7,6 +7,12 @@
   
   <string name="ed_dlc_title">Error Adding DownloadClient</string>
   <string name="ed_dlc_message">Unable to add DownloadClient.\nDownload started and download finished events will not function.</string>
+
+  <string name="ed_bmco_title">Error Adding Bookmarks Content Observer</string>
+  <string name="ed_bmco_message">Unable to add Bookmarks content observer.\nBookmarks changed event will not function.</string>
+
+  <string name="ed_hco_title">Error Adding History Content Observer</string>
+  <string name="ed_hco_message">Unable to add History content observer.\nHistory changed event will not function.</string>
   
   <!-- "em_" == "Error message" -->
   <string name="em_select_option">Please select an option.</string>

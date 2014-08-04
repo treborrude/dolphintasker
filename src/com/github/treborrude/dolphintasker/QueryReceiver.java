@@ -48,15 +48,12 @@ public class QueryReceiver extends BroadcastReceiver
 	  {
 		Log.d(LOG_TAG, String.format("Received EVENT_DETECTED broadcast for event type %s", context.getResources().getResourceEntryName(event_type)));
 		Bundle return_vars = intent.getBundleExtra(Constants.EVENT_DATA);
-		if (return_vars != null)
+		if (return_vars == null)
 		{
-		  Log.d(LOG_TAG, "Install return vars in mDetectedEvents");
-	      mDetectedEvents.put(event_type, return_vars);
+		  return_vars = new Bundle();
 		}
-		else
-		{
-		  Log.d(LOG_TAG, "No return vars found for event!");
-		}
+
+		mDetectedEvents.put(event_type, return_vars);
 	  }
 	  else
 	  {

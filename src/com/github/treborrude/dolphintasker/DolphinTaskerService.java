@@ -16,7 +16,9 @@ import com.dolphin.browser.addons.IHttpAuthHandler;
 import com.dolphin.browser.addons.IWebView;
 import com.dolphin.browser.addons.OnClickListener;
 import com.dolphin.browser.addons.WebViews;
+import com.dolphin.browser.addons.IContentObserver;
 
+// TODO: Try to avoid firing events that Tasker doesn't care about.
 public class DolphinTaskerService extends AddonService
 {
   private static final String LOG_TAG = "DolphinTaskerService";
@@ -34,7 +36,9 @@ public class DolphinTaskerService extends AddonService
 	eventDetectedIntent.putExtra(Constants.EVENT_DATA, eventData);
 
 	context.sendBroadcast(eventDetectedIntent);
+	
 	Log.d(LOG_TAG, String.format("Sent broadcast for event type %s", getResources().getResourceEntryName(eventType)));
+	
 	Intent requestQuery = new Intent(com.twofortyfouram.locale.Intent.ACTION_REQUEST_QUERY);
 	requestQuery.putExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY,
 						  com.github.treborrude.dolphintasker.ui.EventEditActivity.class.getCanonicalName());
@@ -129,10 +133,33 @@ public class DolphinTaskerService extends AddonService
 	}
   };
 
+  private IContentObserver mBookmarksChanged =
+    new IContentObserver.Stub()
+  {
+	@Override
+	public void onChange() throws RemoteException
+	{
+	  Log.d(LOG_TAG, "Bookmarks onChange");
+	  eventDetected(R.id.bookmarks_changed, null);
+	}
+  };
+  
+  private IContentObserver mHistoryChanged =
+    new IContentObserver.Stub()
+  {
+	@Override
+	public void onChange() throws RemoteException
+	{
+	  Log.d(LOG_TAG, "History onChange");
+	  eventDetected(R.id.history_changed, null);
+	}
+  };
+
   @Override
   protected void onBrowserConnected(Browser browser) 
   {
 	Log.d(LOG_TAG, "onBrowserConnected");
+	
 	try
 	{
 	  browser.webViews.addPageListener(mPageListener);
@@ -145,6 +172,7 @@ public class DolphinTaskerService extends AddonService
 	  Log.e(LOG_TAG, "Unable to add page listener.", re);
 	  showErrorDialog(browser, R.string.ed_pl_title, R.string.ed_pl_message);
 	}
+	
 	try
 	{
 	  browser.downloads.registerDownloadClient(mDownloadClient);
@@ -155,6 +183,37 @@ public class DolphinTaskerService extends AddonService
 	  Log.e(LOG_TAG, "Unable to add download client.");
 	  showErrorDialog(browser, R.string.ed_dlc_title, R.string.ed_dlc_message);
 	}
+	
+	try
+	{
+	  browser.bookmarks.registerBookmarkContentObserver(mBookmarksChanged);
+	  Log.d(LOG_TAG, "Successfully added bookmark content observer.");
+	}
+	catch (RemoteException re)
+	{
+	  Log.e(LOG_TAG, "Unable to add bookmarks content observer.");
+	  showErrorDialog(browser, R.string.ed_bmco_title, R.string.ed_bmco_message);
+	}
+    catch (SecurityException se)
+	{
+	  Log.e(LOG_TAG, "Forgot to add permission.", se);
+	}
+	
+	try
+	{
+	  browser.history.registerHistoryContentObserver(mHistoryChanged);
+	  Log.d(LOG_TAG, "Successfully added history content observer.");
+	}
+	catch (RemoteException re)
+	{
+	  Log.e(LOG_TAG, "Unable to add history content observer.");
+	  showErrorDialog(browser, R.string.ed_hco_title, R.string.ed_hco_message);
+	}
+    catch (SecurityException se)
+	{
+	  Log.e(LOG_TAG, "Forgot to add permission.", se);
+	}
+
 	try
 	{
 	  browser.addonBarAction.setTitle(getString(R.string.app_name));

@@ -73,9 +73,23 @@ public class EventEditActivity extends Activity
 	Resources resources = getResources();
 	String selected_event_name = resources.getResourceEntryName(selected_event);
 	String event_name = null;
-	String[] relevantVariables = resources.getStringArray(resources.getIdentifier("rv_" + selected_event_name,
-	                                                                              "array",
-																				  getPackageName()));
+	int rv_id = resources.getIdentifier("rv_" + selected_event_name,
+										"array",
+										getPackageName());
+	String[] relevantVariables = null;
+	
+	if (rv_id != 0)
+	{
+	  relevantVariables = resources.getStringArray(rv_id);
+	}
+	else
+	{
+	  // There are some events that don't have any relevant variables
+	  // (because Dolphin doesn't expose any information), so this is
+	  // not necessarily an error. But I'll still log it just in case
+	  // I ever forget relevant variables that should be there.
+	  Log.d(LOG_TAG, String.format("Unable to find relevant variables for event type %s", selected_event_name));
+	}
 	
 	try
 	{
@@ -88,22 +102,7 @@ public class EventEditActivity extends Activity
 	  // TODO: Dialog box explaining that things are in a bad way?
 	  Log.e(LOG_TAG, String.format("Unable to find event name resource for %s", selected_event_name), rnfe);
 	}
-	
-	try
-	{
-	  relevantVariables = resources.getStringArray(resources.getIdentifier("rv_" + selected_event_name,
-	                                               "array",
-	                                               getPackageName()));
-	}
-	catch (Resources.NotFoundException rnfe)
-	{
-	  // There should always be at least an empty array,
-	  // so this exception is an error.
-	  // TODO: Dialog box explaining that "Variable Value" state contexts will not function,
-	  // and asking for a bug report?
-	  Log.e(LOG_TAG, String.format("Unable to find relevant variables resource for %s", selected_event_name), rnfe);
-	}
-	
+		
 	if (event_name != null)
 	{
 	  final Intent resultIntent = new Intent();
