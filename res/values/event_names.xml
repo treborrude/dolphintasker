@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Names of the various events exposed by DolphinTasker.
+     These resources should be localized. -->
+<resources>
+  <!-- It is important for the portion of the resource name after
+	   the "en_" prefix to match the resource id names of the RadioButtons
+	   in the event_edit.xml layout file. -->
+  <string name="en_bookmarks_changed">Bookmarks Changed</string>
+  <string name="en_download_finished">Download Finished</string>
+  <string name="en_download_started">Download Started</string>
+  <string name="en_history_changed">History Changed</string>
+  <string name="en_page_finished">Page Finished</string>
+  <string name="en_page_started">Page Started</string>
+  <string name="en_page_title_received">Page Title Received</string>
+</resources>

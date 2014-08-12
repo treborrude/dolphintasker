@@ -3,10 +3,5 @@
 <resources>
   <string name="mi_save">Save</string>
   <string name="mi_cancel">Cancel</string>
-  
-  <string name="sm_equals">Equals</string>
-  <string name="sm_not_equals">Does Not Equal</string>
-  <string name="sm_match_regex">Matches Regex</string>
-  <string name="sm_not_match_regex">Does Not Match Regex</string>
 </resources>
 

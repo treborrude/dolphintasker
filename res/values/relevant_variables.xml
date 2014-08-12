@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- These resources should be localized. -->
+<!-- These resources need to be localized (though I wouldn't recommend changing the variable names). -->
 <resources>
-  <string name="rv_ps_dtpurl">%dtpurl\nPage Started URL\nURL of the page that has started loading.</string>
-  <string name="rv_pf_dtpurl">%dtpurl\nPage Finished URL\nURL of the page that has finished loading.</string>
-  <string name="rv_rt_dtptitle">%dtptitle\nPage Title\nPage title that has been received.</string>
-  <string name="rv_dls_dtpurl">%dtpurl\nDownloading File URL\nURL of the file that has started downloading.</string>
-  <string name="rv_dls_dtpua">%dtpua\nUser Agent for Download\nUser agent string that was used in the downlooad request.</string>
-  <string name="rv_dls_dtpcd">%dtpcd\nContent dispostion for Download\nContent disposition of download request.</string>
-  <string name="rv_dls_dtpmt">%dtpmt\nMime type of Download Request\nThe mime type requested for download.</string>
-  <string name="rv_dls_dtplength">%dtplength\nLength of Download\nLength of downloading file.</string>
+  <!-- It is important for the portion of the array names after the "rv_"
+	   prefix to match the resource id names in the RadioButtons of the
+	   event_edit.xml layout file. -->
+  <string-array name="rv_download_finished">
+    <item>%dtpurl\nDownloading File URL\nURL of the file that has finished downloading.</item>
+    <item>%dtpid\nUnique Identifier for Download\nUnique identifier for download.</item>
+    <item>%dtphint\nSuggested Filename\nLocal filename suggested by the initiating application.</item>
+    <item>%dtpfilename\nLocal Filename\nFilename of the file saved on the local filesystem.</item>
+    <item>%dtpmt\nMime type of Download Request\nThe mime type requested for download.</item>
+    <item>%dtpvisibility\nDownload Visibility\nIndication of how long the download is visible in the notifications.</item>
+    <item>%dtpstatus\nDownload Status\nStatus of the download.</item>
+    <item>%dtpcookies\nHTTP Cookies\nHTTP cookies sent with download request.</item>
+    <item>%dtpua\nUser Agent for Download\nUser agent string that was used in the download request.</item>
+    <item>%dtpreferer\nHTTP Referer\nThe HTTP Referer header that the initiating application wants the download manager to use.</item>
+    <item>%dtptotalbytes\nTotal Size\nTotal size of the downloaded file in bytes.</item>
+    <item>%dtptitle\nDownload Title\nTitle of the download, displayed to user in download list.</item>
+    <item>%dtpdescription\nFile Description\nDescription of the downloaded file, as provided by the initiating application.</item>
+  </string-array>
+  <string-array name="rv_download_started">
+    <item>%dtpurl\nDownloading File URL\nURL of the file that has started downloading.</item>
+    <item>%dtpua\nUser Agent for Download\nUser agent string that was used in the download request.</item>
+    <item>%dtpcd\nContent dispostion for Download\nContent disposition of download request.</item>
+    <item>%dtpmt\nMime type of Download Request\nThe mime type requested for download.</item>
+    <item>%dtplength\nLength of Download\nLength of downloading file.</item>
+  </string-array>
+  <string-array name="rv_page_finished">
+    <item>%dtpurl\nPage Finished URL\nURL of the page that has finished loading.</item>
+  </string-array>
+  <string-array name="rv_page_started">
+    <item>%dtpurl\nPage Started URL\nURL of the page that has started loading.</item>
+  </string-array>
+  <string-array name="rv_page_title_received">
+    <item>%dtptitle\nPage Title\nPage title that has been received.</item>
+  </string-array>
 </resources>
-
 

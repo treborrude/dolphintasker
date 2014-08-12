@@ -21,13 +21,15 @@
   <!-- Allows Tasker to react to and start downloads. -->
   <uses-permission android:name=
     "com.dolphin.browser.permission.MANAGE_DOWNLOADS" />
-  
+  <!-- Allows Tasker to notice changes in the bookmarks. -->
+  <uses-permission android:name=
+	"com.dolphin.browser.permission.READ_BOOKMARKS" />
   <!-- Allows Tasker to search history and notice when history
 	   changes happen (though that doesn't seem too useful, since
 	   Dolphin only tells the observer that something happened, not
 	   WHAT happened. -->
-  <!-- <uses-permission android:name=
-	      "com.dolphin.browser.permission.READ_HISTORY" /> -->
+  <uses-permission android:name=
+    "com.dolphin.browser.permission.READ_HISTORY" />
   <!-- Allows Tasker to add and remove history URIs. -->
   <!-- <uses-permission android:name=
 	      "com.dolphin.browser.permission.WRITE_HISTORY" /> -->
@@ -36,7 +38,7 @@
 	     "com.dolphin.browser.permission.MANAGE_TABS" /> -->
 		  
   <application
-	android:debuggable="true"
+	android:debuggable="false"
     android:icon="@drawable/dolphintasker"
     android:label="@string/app_name" >
     <activity
@@ -63,7 +65,7 @@
 	  </intent-filter>
 	  <meta-data 
 	    android:name="dolphin_api_key"
-	    android:value="No3djgN6IC2KXFUcMxI/JqH4UejbXcX6HYqFKrmpP66DmLWoAT+NNHFNHrzDKv4rOmJDAcBUSbWn8nrkVn6AyzpFI9pHFHJD4DGfgF4rbfDZu6OxKJCt4B6cvEQarwhq7T+Mb0ihhkgXHPpuQW/mrJxJY4M7A5b5pyU5x5gX8qo=" />
+	    android:value="@string/dolphin_api_key" />
     </service>
 	<receiver android:name=".QueryReceiver" >
 	  <intent-filter>
