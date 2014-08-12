@@ -35,7 +35,7 @@ public class EventEditActivity
 	{
 	  // As near as I can tell, if savedInstanceState is not null,
 	  // Android is restoring this activity from a previous state,
-	  // and it is not necessary to check the Intent that launced
+	  // and it is not necessary to check the Intent that launched
 	  // this Activity for Locale information.
 
 	  return;
