@@ -17,11 +17,14 @@ import com.dolphin.browser.addons.IWebView;
 import com.dolphin.browser.addons.OnClickListener;
 import com.dolphin.browser.addons.WebViews;
 import com.dolphin.browser.addons.IContentObserver;
+import java.util.Arrays;
+import java.util.List;
 
 // TODO: Try to avoid firing events that Tasker doesn't care about.
 public class DolphinTaskerService extends AddonService
 {
   private static final String LOG_TAG = "DolphinTaskerService";
+  private List<String> mEventTypes = null;
   
   private void eventDetected(int eventType, Bundle eventData)
   {	
@@ -56,7 +59,8 @@ public class DolphinTaskerService extends AddonService
 		Log.d(LOG_TAG, "onPageFinished");
 		Bundle eventData = new Bundle();
 		eventData.putString("%dtpurl", url);
-		eventDetected(R.id.page_finished, eventData);
+		final int event_type = mEventTypes.indexOf("page_finished");
+		eventDetected(event_type, eventData);
 	  }
 	
 	  @Override
@@ -65,7 +69,8 @@ public class DolphinTaskerService extends AddonService
 		Log.d(LOG_TAG, "onPageStarted");
 		Bundle eventData = new Bundle();
 		eventData.putString("%dtpurl", url);
-		eventDetected(R.id.page_started, eventData);
+		final int event_type = mEventTypes.indexOf("page_started");
+		eventDetected(event_type, eventData);
 	  }
 
 	  @Override
@@ -84,7 +89,8 @@ public class DolphinTaskerService extends AddonService
 		Log.d(LOG_TAG, "onReceiveTitle");
 		Bundle eventData = new Bundle();
 		eventData.putString("%dtptitle", title);
-		eventDetected(R.id.page_title_received, eventData);
+		final int event_type = mEventTypes.indexOf("page_title_received");
+		eventDetected(event_type, eventData);
 	  }
 	};
 	
@@ -111,7 +117,8 @@ public class DolphinTaskerService extends AddonService
 	  eventData.putInt("%dtptotalbytes", downloadInfo.totalBytes);
 	  eventData.putString("%dtptitle", downloadInfo.title);
 	  eventData.putString("%dtpdescription", downloadInfo.description);
-	  eventDetected(R.id.download_finished, eventData);
+	  final int event_type = mEventTypes.indexOf("download_finished");
+	  eventDetected(event_type, eventData);
 	}
 	
 	@Override
@@ -128,7 +135,8 @@ public class DolphinTaskerService extends AddonService
 	  eventData.putString("%dtpcd", contentDisposition);
 	  eventData.putString("%dtpmt", mimetype);
 	  eventData.putLong("%dtplength", contentLength);
-      eventDetected(R.id.download_started, eventData);
+	  final int event_type = mEventTypes.indexOf("download_started");
+      eventDetected(event_type, eventData);
 	  return false;
 	}
   };
@@ -140,7 +148,8 @@ public class DolphinTaskerService extends AddonService
 	public void onChange() throws RemoteException
 	{
 	  Log.d(LOG_TAG, "Bookmarks onChange");
-	  eventDetected(R.id.bookmarks_changed, null);
+	  final int event_type = mEventTypes.indexOf("bookmarks_changed");
+	  eventDetected(event_type, null);
 	}
   };
   
@@ -151,7 +160,8 @@ public class DolphinTaskerService extends AddonService
 	public void onChange() throws RemoteException
 	{
 	  Log.d(LOG_TAG, "History onChange");
-	  eventDetected(R.id.history_changed, null);
+	  final int event_type = mEventTypes.indexOf("history_changed");
+	  eventDetected(event_type, null);
 	}
   };
 
@@ -159,6 +169,8 @@ public class DolphinTaskerService extends AddonService
   protected void onBrowserConnected(Browser browser) 
   {
 	Log.d(LOG_TAG, "onBrowserConnected");
+	
+	mEventTypes = Arrays.asList(getResources().getStringArray(R.array.event_types));
 	
 	try
 	{
@@ -269,6 +281,8 @@ public class DolphinTaskerService extends AddonService
 	{
 	  Log.e(LOG_TAG, "Unable to remove download client.", re);
 	}
+	
+	mEventTypes = null;
   }
 
   private void showErrorDialog(Browser browser,

@@ -8,11 +8,13 @@
 	   below this array. -->
 	   
   <string-array name="tasker_events">
-	<item>@string/dl_started</item>
-	<item>@string/dl_finished</item>
-	<item>@string/page_started</item>
-	<item>@string/page_finished</item>
-	<item>@string/title_received</item>
+	<item>@string/en_bookmarks_changed</item>
+	<item>@string/en_download_finished</item>
+	<item>@string/en_download_started</item>
+	<item>@string/en_history_changed</item>
+	<item>@string/en_page_finished</item>
+	<item>@string/en_page_started</item>
+	<item>@string/en_page_title_received</item>
   </string-array>
   
   <!-- This must match the tasker_events array with non-localized names,
@@ -22,29 +24,13 @@
 	   this one. -->
 
   <string-array name="event_types">
-	<item>download_started</item>
+	<item>bookmarks_changed</item>
 	<item>download_finished</item>
-	<item>page_started</item>
+	<item>download_started</item>
+	<item>history_changed</item>
 	<item>page_finished</item>
-	<item>title_received</item>
-  </string-array>
-  
-  <string-array name="string_matches">
-	<item></item>
-	<item>@string/sm_equals</item>
-	<item>@string/sm_not_equals</item>
-	<item>@string/sm_match_regex</item>
-	<item>@string/sm_not_match_regex</item>
-  </string-array>
-  
-  <string-array name="number_matches">
-	<item></item>
-	<item>=</item>
-	<item>!=</item>
-	<item>&lt;</item>
-	<item>&gt;</item>
-	<item>&lt;=</item>
-	<item>&gt;=</item>
+	<item>page_started</item>
+	<item>page_title_received</item>
   </string-array>
 </resources>
 
